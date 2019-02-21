@@ -31,7 +31,7 @@ public class CurrencyConversionController {
     uriVariables.put("to", to);
 
     ResponseEntity<CurrencyConversionBean> responseEntity = new RestTemplate().getForEntity(
-        "http://forex-test.router.default.svc.cluster.local:8080/currency-exchange/from/{from}/to/{to}", CurrencyConversionBean.class,
+        "http://forex-test.router.default.svc.cluster.local/currency-exchange/from/{from}/to/{to}", CurrencyConversionBean.class,
         uriVariables);
 
     CurrencyConversionBean response = responseEntity.getBody();
