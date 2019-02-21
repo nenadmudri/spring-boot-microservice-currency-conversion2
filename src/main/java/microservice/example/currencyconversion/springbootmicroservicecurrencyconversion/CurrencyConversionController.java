@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,10 +36,11 @@ public class CurrencyConversionController {
 
     CurrencyConversionBean response = responseEntity.getBody();
     
-    return new CurrencyConversionBean(response.getId(), from, to, response.getUnit(), response.getConversionMultiple(), quantity,
+    return new CurrencyConversionBean(response.getId(), response.getFrom(), from, to, response.getUnit(), response.getConversionMultiple(), quantity,
         quantity.multiply(response.getConversionMultiple()).divide(new BigDecimal(response.getUnit())), response.getPort());
   }
-
+  
+  @CrossOrigin(origins = "http://localhost:8002")
   @GetMapping("/currency-converter-feign/from/{from}/to/{to}/quantity/{quantity}")
   public CurrencyConversionBean convertCurrencyFeign(@PathVariable String from, @PathVariable String to,
       @PathVariable BigDecimal quantity) {
@@ -49,7 +51,7 @@ public class CurrencyConversionController {
 
     logger.info("{}", response);
 
-    return new CurrencyConversionBean(response.getId(), from, to, response.getUnit(), response.getConversionMultiple(), quantity,
+    return new CurrencyConversionBean(response.getId(),  response.getFrom(), from, to, response.getUnit(), response.getConversionMultiple(), quantity,
     	      quantity.multiply(response.getConversionMultiple()).divide(new BigDecimal(response.getUnit())), response.getPort());
     	  }
   }

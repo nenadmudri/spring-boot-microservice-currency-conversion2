@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public class CurrencyConversionBean {
 	  private Long id;
+	  private String countryName;
 	  private String from;
 	  private String to;
 	  private int unit;
@@ -16,10 +17,11 @@ public class CurrencyConversionBean {
 
 	  }
 
-	  public CurrencyConversionBean(Long id, String from, String to,int unit, BigDecimal conversionMultiple, BigDecimal quantity, BigDecimal totalCalculatedAmount, int port)
+	  public CurrencyConversionBean(Long id, String countryName, String from, String to,int unit, BigDecimal conversionMultiple, BigDecimal quantity, BigDecimal totalCalculatedAmount, int port)
 	  {
 	    super();
 	    this.id = id;
+	    this.countryName = countryName;
 	    this.from = from;
 	    this.to = to;
 	    this.unit = unit;
@@ -45,6 +47,14 @@ public class CurrencyConversionBean {
 		  public void setFrom(String from) {
 		    this.from = from;
 		  }
+		  
+		  public String getCountryName() {
+			    return countryName;
+			  }
+
+		   public void setCountryName(String countryName) {
+			    this.countryName = countryName;
+			  }
 
 		  public String getTo() {
 		    return to;
