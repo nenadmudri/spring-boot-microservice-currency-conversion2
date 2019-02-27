@@ -23,7 +23,7 @@ public class CurrencyConversionController {
   private CurrencyExchangeServiceProxy proxy;
 
   @GetMapping("/currency-converter/from/{from}/to/{to}/quantity/{quantity}")
-  public CurrencyConversionBean convertCurrency(@PathVariable String from, @PathVariable String to,
+  public BigDecimal convertCurrency(@PathVariable String from, @PathVariable String to,
       @PathVariable BigDecimal quantity) {
 
     Map<String, String> uriVariables = new HashMap<>();
@@ -36,8 +36,8 @@ public class CurrencyConversionController {
 
     CurrencyConversionBean response = responseEntity.getBody();
     
-    return new CurrencyConversionBean(response.getId(), response.getFrom(), from, to, response.getUnit(), response.getConversionMultiple(), quantity,
-        quantity.multiply(response.getConversionMultiple()).divide(new BigDecimal(response.getUnit())), response.getPort());
+   BigDecimal result = quantity.multiply(response.getConversionMultiple()).divide(new BigDecimal(response.getUnit()));
+    return result;
   }
   
   @CrossOrigin(origins = "http://localhost:8002")
